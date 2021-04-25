@@ -23,9 +23,9 @@ import { AuthGuard } from 'src/helpers/auth.guard';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' , canActivate: [AuthGuard]},
-      { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard] },
-    ])
+      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
