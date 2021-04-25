@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
     const currentUser = this.authenticationService.currentUserValue;
-    console.log(state.url)
+
     if (currentUser && state.url === "/") {
       // logged and redirect
       this.router.navigate(['/dashboard']);

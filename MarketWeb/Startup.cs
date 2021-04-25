@@ -1,3 +1,5 @@
+using DataAccessLibrary.DataAccess;
+using DataAccessLibrary.Services;
 using MarketWeb.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +21,7 @@ namespace MarketWeb
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
 
-        public Startup(IWebHostEnvironment env,IConfiguration configuration)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             _env = env;
             _configuration = configuration;
@@ -37,15 +39,11 @@ namespace MarketWeb
                 configuration.RootPath = "ClientApp/dist";
             });
 
-
-            // use sql server db in production and sqlite db in development
-            //if (_env.IsProduction())
-            //    services.AddDbContext<DataContext>();
-            //else
-            //    services.AddDbContext<DataContext, SqliteDataContext>();
+            services.AddDbContext<MarketContext>();
 
             services.AddCors();
             services.AddControllers();
+            services.AddMemoryCache();
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // configure strongly typed settings objects
@@ -76,11 +74,22 @@ namespace MarketWeb
                 };
             });
 
+            // cache manager service
+            services.AddSingleton<ICacheManager, MemoryCacheManager>();
+        
+
+            // configure DI for application services
+            services.AddScoped<IMarketService, MarketService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+
+
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -93,6 +102,7 @@ namespace MarketWeb
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -101,12 +111,6 @@ namespace MarketWeb
 
             app.UseRouting();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller}/{action=Index}/{id?}");
-            //});
 
             // global cors policy
             app.UseCors(x => x

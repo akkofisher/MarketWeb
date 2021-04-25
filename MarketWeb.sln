@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketWeb", "MarketWeb\MarketWeb.csproj", "{F9216237-04E0-4DB0-B194-017B33296990}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{AF64E08D-9C82-470F-9F76-187087AD9A9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F9216237-04E0-4DB0-B194-017B33296990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9216237-04E0-4DB0-B194-017B33296990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9216237-04E0-4DB0-B194-017B33296990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF64E08D-9C82-470F-9F76-187087AD9A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF64E08D-9C82-470F-9F76-187087AD9A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF64E08D-9C82-470F-9F76-187087AD9A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF64E08D-9C82-470F-9F76-187087AD9A9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
