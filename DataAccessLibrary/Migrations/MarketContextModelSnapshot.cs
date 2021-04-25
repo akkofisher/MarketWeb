@@ -39,6 +39,38 @@ namespace DataAccessLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1000,
+                            Code = "C1",
+                            Name = "Company 1"
+                        },
+                        new
+                        {
+                            Id = 1001,
+                            Code = "C2",
+                            Name = "Company 2"
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            Code = "C3",
+                            Name = "Company 3"
+                        },
+                        new
+                        {
+                            Id = 1003,
+                            Code = "C4",
+                            Name = "Company 4"
+                        },
+                        new
+                        {
+                            Id = 1004,
+                            Code = "C5",
+                            Name = "Company 5"
+                        });
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Entities.Market", b =>
@@ -61,6 +93,38 @@ namespace DataAccessLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Markets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1000,
+                            Code = "M1",
+                            Name = "Market 1"
+                        },
+                        new
+                        {
+                            Id = 1001,
+                            Code = "M2",
+                            Name = "Market 2"
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            Code = "M3",
+                            Name = "Market 3"
+                        },
+                        new
+                        {
+                            Id = 1003,
+                            Code = "M4",
+                            Name = "Market 4"
+                        },
+                        new
+                        {
+                            Id = 1004,
+                            Code = "M5",
+                            Name = "Market 5"
+                        });
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Entities.MarketPrice", b =>

@@ -72,7 +72,7 @@ namespace MarketWeb.Controllers
         }
 
         [HttpPost("AddOrUpdateCompanyPrice")]
-        public async Task<IActionResult> AddOrUpdateCompanyPrice(CompanyPriceModel data)
+        public async Task<IActionResult> AddOrUpdateCompanyPrice([FromForm] CompanyPriceModel data)
         {
             return Ok(await _companyService.AddOrUpdateCompanyPrice(data));
         }

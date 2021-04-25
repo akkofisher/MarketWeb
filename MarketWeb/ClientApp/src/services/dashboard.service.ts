@@ -10,7 +10,7 @@ export class DashboardService {
   }
 
   GetNames() {
-    return this.http.get<any[]>(`${environment.apiUrl}/dashboard/GetNames`);
+    return this.http.get<any>(`${environment.apiUrl}/dashboard/GetNames`);
   }
 
   GetCompanyPrices() {
@@ -19,23 +19,23 @@ export class DashboardService {
 
   GetCompanyById(data: any) {
     let params = new HttpParams();
-    params = params.append('id', data.id);
+    params = params.append('id', data);
     return this.http.get<any[]>(`${environment.apiUrl}/dashboard/GetCompanyById`, { params });
   }
 
   GetPricesByCompanyId(data: any) {
     let params = new HttpParams();
-    params = params.append('id', data.id);
+    params = params.append('id', data);
     return this.http.get<any[]>(`${environment.apiUrl}/dashboard/GetPricesByCompanyId`, { params });
   }
 
   AddOrUpdateCompanyPrice(data: CompanyPriceData) {
-    let bodyParams  = new HttpParams();
+    let bodyParams = new HttpParams();
     Object.keys(data).forEach(function (key) {
-      bodyParams  = bodyParams .append(key, data[key]);
+      bodyParams = bodyParams.append(key, data[key]);
     });
 
-    return this.http.post<boolean>(`${environment.apiUrl}/dashboard/AddOrUpdateCompanyPrice`, bodyParams );
+    return this.http.post<boolean>(`${environment.apiUrl}/dashboard/AddOrUpdateCompanyPrice`, bodyParams);
   }
 
 }

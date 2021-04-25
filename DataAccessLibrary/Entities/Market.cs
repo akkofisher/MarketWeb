@@ -6,7 +6,6 @@ namespace DataAccessLibrary.Entities
 {
     public class Market
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

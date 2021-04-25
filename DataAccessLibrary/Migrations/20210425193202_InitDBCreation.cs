@@ -63,6 +63,30 @@ namespace DataAccessLibrary.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Companies",
+                columns: new[] { "Id", "Code", "Name" },
+                values: new object[,]
+                {
+                    { 1000, "C1", "Company 1" },
+                    { 1001, "C2", "Company 2" },
+                    { 1002, "C3", "Company 3" },
+                    { 1003, "C4", "Company 4" },
+                    { 1004, "C5", "Company 5" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Markets",
+                columns: new[] { "Id", "Code", "Name" },
+                values: new object[,]
+                {
+                    { 1000, "M1", "Market 1" },
+                    { 1001, "M2", "Market 2" },
+                    { 1002, "M3", "Market 3" },
+                    { 1003, "M4", "Market 4" },
+                    { 1004, "M5", "Market 5" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_MarketPrices_CompanyId",
                 table: "MarketPrices",

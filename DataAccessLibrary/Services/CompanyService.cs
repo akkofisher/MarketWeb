@@ -16,7 +16,7 @@ namespace DataAccessLibrary.Services
         Task<Company> GetCompanyById(int Id);
         Task<IEnumerable<object>> GetCompanyPrices();
         Task<IEnumerable<object>> GetPricesByCompanyId(int Id);
-        Task<bool> AddOrUpdateCompanyPrice(CompanyPriceModel data);
+        Task<object> AddOrUpdateCompanyPrice(CompanyPriceModel data);
     }
 
     public class CompanyService : ICompanyService
@@ -48,7 +48,7 @@ namespace DataAccessLibrary.Services
                 CompanyId = x.Company.Id,
                 MarketName = x.Market.Name,
                 MarketId = x.Market.Id,
-            }).ToListAsync();
+            }).OrderBy(x => x.CompanyId).ThenBy(x => x.CompanyId).ToListAsync();
         }
 
         public async Task<IEnumerable<object>> GetPricesByCompanyId(int Id)
@@ -65,34 +65,41 @@ namespace DataAccessLibrary.Services
                 }).ToListAsync();
         }
 
-        public async Task<bool> AddOrUpdateCompanyPrice(CompanyPriceModel data)
+        public async Task<object> AddOrUpdateCompanyPrice(CompanyPriceModel data)
         {
-            var foundCompany = await _marketContext.MarketPrices.FirstOrDefaultAsync(x => x.Company.Id == data.CompanyId && x.Market.Id == data.MarketId);
-
-            if (foundCompany != null)
+            try
             {
-                foundCompany.Price = data.Price;
-                foundCompany.DateUpdated = DateTime.Now;
+                var foundCompany = await _marketContext.MarketPrices.FirstOrDefaultAsync(x => x.Company.Id == data.CompanyId && x.Market.Id == data.MarketId);
 
-                _marketContext.Attach(foundCompany);
-                _marketContext.Entry(foundCompany).Property(p => p.Price).IsModified = true;
-                _marketContext.Entry(foundCompany).Property(p => p.DateUpdated).IsModified = true;
-
-                await _marketContext.SaveChangesAsync();
-            }
-            else
-            {
-                await _marketContext.MarketPrices.AddAsync(new MarketPrice
+                if (foundCompany != null)
                 {
-                    CompanyId = data.CompanyId,
-                    MarketId = data.MarketId,
-                    Price = data.Price,
-                    DateUpdated = DateTime.Now
-                });
-                await _marketContext.SaveChangesAsync();
-            }
+                    foundCompany.Price = data.Price;
+                    foundCompany.DateUpdated = DateTime.Now;
 
-            return true;
+                    _marketContext.Attach(foundCompany);
+                    _marketContext.Entry(foundCompany).Property(p => p.Price).IsModified = true;
+                    _marketContext.Entry(foundCompany).Property(p => p.DateUpdated).IsModified = true;
+
+                    await _marketContext.SaveChangesAsync();
+                }
+                else
+                {
+                    await _marketContext.MarketPrices.AddAsync(new MarketPrice
+                    {
+                        CompanyId = data.CompanyId,
+                        MarketId = data.MarketId,
+                        Price = data.Price,
+                        DateUpdated = DateTime.Now
+                    });
+                    await _marketContext.SaveChangesAsync();
+                }
+
+                return new { Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new { Status = false, Message = $"error message - {ex.Message}" };
+            }
         }
 
     }

@@ -7,19 +7,24 @@ namespace DataAccessLibrary.Entities
 {
     public class MarketPrice
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
 
         [Required]
-        public Company Company { get; set; }
+        //[ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
+
         [Required]
+        [ForeignKey("Company")]
         public int CompanyId { get; set; }
 
         [Required]
-        public Market Market { get; set; }
+       // [ForeignKey("MarketId")]
+        public virtual Market Market { get; set; }
+
         [Required]
+        [ForeignKey("Market")]
         public int MarketId { get; set; }
 
         [Required]
